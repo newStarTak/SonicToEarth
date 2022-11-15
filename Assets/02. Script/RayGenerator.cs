@@ -34,12 +34,6 @@ public class RayGenerator : MonoBehaviour
                 StartCoroutine(GenerateTrail(trail, hit.point, hit.normal, ReflectingDistance, true, hit.collider.name));
             }
 
-            /*
-            if (Physics2D.Raycast(RayGeneratePoint.position, direction, out RaycastHit hit, float.MaxValue)) {
-                StartCoroutine(GenerateTrail(trail, hit.point, hit.normal, ReflectingDistance, true));    // Trail Generate
-            }
-            */
-
             else {
                 // 발사된 Ray가 충돌하지 못하는 상황에선 일정 거리 진행 후 소멸
                 StartCoroutine(GenerateTrail(trail, direction * 10, Vector3.zero, ReflectingDistance, false, hit.collider.name));
@@ -52,18 +46,11 @@ public class RayGenerator : MonoBehaviour
     // Trail 생성 함수
     private IEnumerator GenerateTrail(TrailRenderer Trail, Vector3 ReflectingPoint, Vector3 ReflectingNormal, float ReflectingDistance, bool MadeImpact, string ColliderName)
     {
-        Debug.Log("Hit Collider Name : " + ColliderName);
-
         float distance;    // Ray가 진행 할 남은 거리
         float startingDistance;    // Ray가 진행 할 전체 거리
 
-        Debug.Log("(charlie) 1. Trail position (not move) : " + Trail.transform.position);
-
         Vector3 startPosition = Trail.transform.position;
-        Debug.Log("(alpha) 1. Reflecting Point : " + ReflectingPoint);
-        Debug.Log("(alpha) 2. Trail position : " + Trail.transform.position);
         Vector3 direction = (ReflectingPoint - Trail.transform.position).normalized;    // Ray의 반사 지점으로의 Direction Vector 연산
-        Debug.Log("(alpha) 3. Direction : " + direction);
 
         // 마지막 반사 과정 (ReflectingDistance를 모두 소진한 경우)
         if (ReflectingDistance <= 0) {
@@ -78,7 +65,6 @@ public class RayGenerator : MonoBehaviour
         else {
             // Ray의 반사 지점까지의 거리 연산
             distance = Vector3.Distance(Trail.transform.position, ReflectingPoint);
-            Debug.Log("(alpha) Distnace : " + distance);
             startingDistance = distance;
         }
 
@@ -90,11 +76,8 @@ public class RayGenerator : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log("(charlie) 1. Trail position (after move) : " + Trail.transform.position);
-
+        ReflectingPoint = new Vector3(ReflectingPoint.x + (direction.x * -0.1f), ReflectingPoint.y + (direction.y * -0.1f), 0);
         Trail.transform.position = ReflectingPoint;
-
-        Debug.Log("(charlie) 1. Trail position (equal RP) : " + Trail.transform.position);
 
         // 반사
         if (MadeImpact) {
@@ -102,23 +85,11 @@ public class RayGenerator : MonoBehaviour
             if (ReflectingDistance > 0) {
                 // 반사 이후의 Direction Vector 연산
                 Vector3 ReflectingDirection = Vector3.Reflect(direction, ReflectingNormal);
-                Debug.Log("(alpha) 4. Reflecting Normal" + ReflectingNormal);
-                Debug.Log("(alpha) 5. Reflecting Direction : " + ReflectingDirection);
 
-                Vector3 TMP = new Vector3(ReflectingPoint.x, ReflectingPoint.y+1, 0);
-
-                // RaycastHit2D hitReflection = Physics2D.Raycast(ReflectingPoint, ReflectingDirection, ReflectingDistance);
-                RaycastHit2D hitReflection = Physics2D.Raycast(TMP, ReflectingDirection, ReflectingDistance);
-
-                if (hitReflection.collider.name == ColliderName) {
-                    Debug.Log("Collider redundant");
-                    yield return null;
-                }
+                RaycastHit2D hitReflection = Physics2D.Raycast(ReflectingPoint, ReflectingDirection, ReflectingDistance);
 
                 // 남아 있는 ReflectingDistance로 다음 반사 지점까지 도달 할 수 있는 경우
                 if (hitReflection.collider != null) {
-                    Debug.Log("Next Reflecting Wall (Not expected Down Wall) : " + hitReflection.collider.name);
-                    Debug.Log("(charlie) 1. Trail position (after Reflection computing) : " + Trail.transform.position);
                     yield return StartCoroutine(GenerateTrail(
                         Trail,
                         hitReflection.point,
@@ -131,7 +102,6 @@ public class RayGenerator : MonoBehaviour
 
                 else {
                     // Last ReflectingPoint를 연산하기 위한 Raycast
-
                     RaycastHit2D hitReflectionLast = Physics2D.Raycast(ReflectingPoint, ReflectingDirection, float.MaxValue);
 
                     if (hitReflectionLast.collider != null) {
