@@ -18,6 +18,8 @@ public class RayGenerator : MonoBehaviour
     private float LastGenerateTime;
     private float LastReflectingDistance = 0;
 
+    public bool isNextRayHitSpecial = false;
+
     // Ray 생성 함수
     public void RayGenerate()
     {
@@ -32,6 +34,16 @@ public class RayGenerator : MonoBehaviour
 
             if (hit.collider != null) {
                 StartCoroutine(GenerateTrail(trail, hit.point, hit.normal, ReflectingDistance, true, hit.collider.name));
+
+                Debug.Log("Init Hit Obj Tag: " + hit.collider.tag);
+
+                /* 레이를 미리 쏴봤을 때 음파 상호작용 오브젝트라면
+                 * isNextRayHitSpecial 변수를 true로 설정해 실제 충돌을 대비해둠
+                 * 실제 충돌 처리는 반사 루프 안에서 구현해둠 */
+                if (hit.collider.tag == "LANTERN")
+                {
+                    isNextRayHitSpecial = true;
+                }
             }
 
             else {
@@ -90,6 +102,25 @@ public class RayGenerator : MonoBehaviour
 
                 // 남아 있는 ReflectingDistance로 다음 반사 지점까지 도달 할 수 있는 경우
                 if (hitReflection.collider != null) {
+
+                    Debug.Log("Hit Obj Tag: " + hitReflection.collider.tag);
+
+
+                    /* 실제로 음파 상호작용 오브젝트와 충돌해 상호작용을 하게 함
+                     * 변수 검사를 먼저 해야 다음 충돌 때 정상적으로 음파 상호작용이 이루어짐 */
+                    if (isNextRayHitSpecial)
+                    {
+                        isNextRayHitSpecial = false;
+                        Debug.Log("- ! = = = = = < L A N T E R N > = = = = = ! -");
+                    }
+
+                    /* 레이를 미리 쏴봤을 때 음파 상호작용 오브젝트라면
+                     * isNextRayHitSpecial 변수를 true로 설정해 실제 충돌을 대비해둠 */
+                    if (hitReflection.collider.tag == "LANTERN")
+                    {
+                        isNextRayHitSpecial = true;
+                    }
+
                     yield return StartCoroutine(GenerateTrail(
                         Trail,
                         hitReflection.point,
@@ -106,6 +137,8 @@ public class RayGenerator : MonoBehaviour
 
                     if (hitReflectionLast.collider != null) {
                         LastReflectingDistance = ReflectingDistance;
+
+                        //Debug.Log("Last Hit Obj Name: " + hitReflectionLast.collider.name);   // hitReflectionLast가 닿은 오브젝트는 거리가 되지 않아 실제로 트레일이 닿지 못함
 
                         yield return StartCoroutine(GenerateTrail(
                             Trail,
