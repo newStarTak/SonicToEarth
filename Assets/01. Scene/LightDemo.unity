@@ -185,7 +185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RayGeneratePoint: {fileID: 195762207}
   RayTrail: {fileID: 678035748736569324, guid: a7d69548313233b47888992d40b90ed7, type: 3}
-  GenerateDelay: 0.5
+  GenerateDelay: 1
   Speed: 10
   ReflectingDistance: 20
   isNextRayHitSpecial: 0
@@ -446,10 +446,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   auc: {fileID: 0}
-  rmsValue: 0
-  modulate: 10000
-  resultValue: 0
+  maxValue: 200
   cutValue: 10
+  resultValue: 0
+  rayShootValue: 150
 --- !u!212 &1184350928
 SpriteRenderer:
   m_ObjectHideFlags: 0
