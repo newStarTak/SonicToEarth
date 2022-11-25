@@ -20,6 +20,9 @@ public class RayGenerator : MonoBehaviour
 
     public bool isNextRayHitSpecial = false;
 
+    public GameObject hitLight;
+    public GameObject hitParticle;
+
     // Ray 생성 함수
     public void RayGenerate()
     {
@@ -105,13 +108,20 @@ public class RayGenerator : MonoBehaviour
 
                     Debug.Log("Hit Obj Tag: " + hitReflection.collider.tag);
 
-
                     /* 실제로 음파 상호작용 오브젝트와 충돌해 상호작용을 하게 함
                      * 변수 검사를 먼저 해야 다음 충돌 때 정상적으로 음파 상호작용이 이루어짐 */
                     if (isNextRayHitSpecial)
                     {
                         isNextRayHitSpecial = false;
                         Debug.Log("- ! = = = = = < L A N T E R N > = = = = = ! -");
+                    }
+                    else
+                    {
+                        // 벽 반사 시 Point Light와 Particle 생성
+                        GameObject newHitLight = Instantiate(hitLight, Trail.transform.position, Quaternion.identity);
+                        Destroy(newHitLight, 3.0f);
+                        GameObject newHitParticle = Instantiate(hitParticle, Trail.transform.position, Quaternion.identity);
+                        Destroy(newHitParticle, 1.0f);
                     }
 
                     /* 레이를 미리 쏴봤을 때 음파 상호작용 오브젝트라면
@@ -134,6 +144,29 @@ public class RayGenerator : MonoBehaviour
                 else {
                     // Last ReflectingPoint를 연산하기 위한 Raycast
                     RaycastHit2D hitReflectionLast = Physics2D.Raycast(ReflectingPoint, ReflectingDirection, float.MaxValue);
+
+                    /* 실제로 음파 상호작용 오브젝트와 충돌해 상호작용을 하게 함
+                     * 변수 검사를 먼저 해야 다음 충돌 때 정상적으로 음파 상호작용이 이루어짐 */
+                    if (isNextRayHitSpecial)
+                    {
+                        isNextRayHitSpecial = false;
+                        Debug.Log("- ! = = = = = < L A N T E R N > = = = = = ! -");
+                    }
+                    else
+                    {
+                        // 벽 반사 시 Point Light와 Particle 생성
+                        GameObject newHitLight = Instantiate(hitLight, Trail.transform.position, Quaternion.identity);
+                        Destroy(newHitLight, 3.0f);
+                        GameObject newHitParticle = Instantiate(hitParticle, Trail.transform.position, Quaternion.identity);
+                        Destroy(newHitParticle, 1.0f);
+                    }
+
+                    /* 레이를 미리 쏴봤을 때 음파 상호작용 오브젝트라면
+                     * isNextRayHitSpecial 변수를 true로 설정해 실제 충돌을 대비해둠 */
+                    if (hitReflectionLast.collider.tag == "LANTERN")
+                    {
+                        isNextRayHitSpecial = true;
+                    }
 
                     if (hitReflectionLast.collider != null) {
                         LastReflectingDistance = ReflectingDistance;
