@@ -931,7 +931,7 @@ MonoBehaviour:
   RayTrail: {fileID: 678035748736569324, guid: a7d69548313233b47888992d40b90ed7, type: 3}
   GenerateDelay: 0.5
   Speed: 10
-  ReflectingDistance: 20
+  ReflectingDistance: 100
 --- !u!4 &1640460630
 Transform:
   m_ObjectHideFlags: 0
