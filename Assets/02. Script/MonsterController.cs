@@ -5,9 +5,9 @@ using UnityEngine;
 public class MonsterController : MonoBehaviour
 {
     [SerializeField]
-    private float traceSpeed = 0.1f;
+    private float traceSpeed = 0.05f;
     [SerializeField]
-    private float delayTime = 1.0f;
+    private float delayTime = 3.0f;
 
     public GameObject player;
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PCforTest : MonoBehaviour
 {
     [SerializeField]
-    private float speed = 0.1f;
+    private float speed = 5.0f;
 
     // Update is called once per frame
     void Update()
