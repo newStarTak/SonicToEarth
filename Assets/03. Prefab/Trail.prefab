@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 335891628021053419}
   - component: {fileID: 678035748736569324}
   - component: {fileID: 3296491852349896104}
+  - component: {fileID: 8271977601661568103}
   m_Layer: 0
   m_Name: Trail
   m_TagString: Untagged
@@ -219,3 +220,22 @@ MonoBehaviour:
   - {x: 0.5544001, y: -0.15546647, z: 0}
   - {x: -0.55082464, y: 0.14912188, z: 0}
   - {x: -2.7168012, y: -0.18000048, z: 0}
+--- !u!114 &8271977601661568103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3790296377825792817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e093222c0b43e534f9dcb716b9dce9d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modulate: 1
+  isUp: 0
+  isDown: 0
+  isDestroy: 0
+  isTrail: 1
+  isLantern: 0
+  maxRadius: 2
