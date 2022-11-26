@@ -123,7 +123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e093222c0b43e534f9dcb716b9dce9d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  modulate: 2
   isUp: 1
   isDown: 0
   isDestroy: 0
+  isTrail: 0
   maxRadius: 4

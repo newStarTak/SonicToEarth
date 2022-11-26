@@ -23,6 +23,15 @@ public class PlayerController : MonoBehaviour
     public int resultValue;
     public int rayShootValue;
 
+    public bool canShoot;
+
+    private float h;
+    private Rigidbody2D rb;
+
+    public float maxSpeed;
+    public float jumpForce;
+    private bool isSpeedDown;
+
     void Start()
     {
         rayGenerator = GameObject.Find("RayGenerator").GetComponent<RayGenerator>();
@@ -30,10 +39,47 @@ public class PlayerController : MonoBehaviour
         // samples 배열에 샘플 값(44100개) 저장해두고 마이크 작동 시작
         samples = new float[sampleRate];
         auc = Microphone.Start(Microphone.devices[0].ToString(), true, 1, sampleRate);
+
+        canShoot = true;
+
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
+        h = Input.GetAxisRaw("Horizontal");
+        rb.AddForce(Vector2.right * h, ForceMode2D.Impulse);
+
+        if(Mathf.Abs(rb.velocity.x) > maxSpeed)
+        {
+            rb.velocity = new Vector2(maxSpeed * h, rb.velocity.y);
+        }
+        else if(isSpeedDown)
+        {
+            rb.velocity *= new Vector2(0.96f, 1f);
+            if(Mathf.Abs(rb.velocity.x) < 1f)
+            {
+                rb.velocity = new Vector2(0f, rb.velocity.y);
+            }
+        }
+
+        if(Input.GetButtonDown("Horizontal"))
+        {
+            isSpeedDown = false;
+        }
+        else if(Input.GetButtonUp("Horizontal") && !Input.GetButton("Horizontal"))
+        {
+            isSpeedDown = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
+
+        // Translate를 이용해 이동하면 벽에 부딪힐 경우 떨림 현상 발생, rigidBody 사용해 문제 해결
+        //transform.Translate(new Vector2(walkSpeed * h * Time.deltaTime, 0));
+
         auc.GetData(samples, 0);
 
         // 샘플값을 절대값으로 만드는 과정
@@ -54,8 +100,9 @@ public class PlayerController : MonoBehaviour
             resultValue = 0;
         }
 
-        if (resultValue > rayShootValue || Input.GetMouseButton(0))
+        if ((resultValue > rayShootValue || Input.GetMouseButton(0)) && canShoot)
         {
+            canShoot = false;
             rayGenerator.RayGenerate();
         }
     }
