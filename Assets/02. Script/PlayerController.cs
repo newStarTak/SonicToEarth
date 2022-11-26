@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
             resultValue = 0;
         }
 
-        if (resultValue > rayShootValue)
+        if (resultValue > rayShootValue || Input.GetMouseButton(0))
         {
             rayGenerator.RayGenerate();
         }
