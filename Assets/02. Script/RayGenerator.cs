@@ -114,6 +114,7 @@ public class RayGenerator : MonoBehaviour
                     if (prevColl)
                     {
                         prevColl.GetComponent<LightCtrl>().isUp = true;
+                        GameObject.FindGameObjectWithTag("FOLLOWCAM").GetComponent<CameraCtrl>().ZoomIn(prevColl.gameObject);
                         prevColl = null;
                         Debug.Log("- ! = = = = = < L A N T E R N > = = = = = ! -");
                     }
@@ -152,6 +153,7 @@ public class RayGenerator : MonoBehaviour
                     if (prevColl)
                     {
                         prevColl.GetComponent<LightCtrl>().isUp = true;
+                        GameObject.FindGameObjectWithTag("FOLLOWCAM").GetComponent<CameraCtrl>().ZoomIn(prevColl.gameObject);
                         prevColl = null;
                         Debug.Log("- ! = = = = = < L A N T E R N > = = = = = ! - Last Hit");
                     }
