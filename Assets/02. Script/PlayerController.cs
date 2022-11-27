@@ -5,32 +5,34 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     RayGenerator rayGenerator;
+    [Header("Mic Input")]
+    // 결과값의 최대 제한값, 작은 소음에 의한 인식은 무시하도록 최소 제한값, 결과값, 음파 발사를 위한 최소 소리 크기값
+    public int maxValue;
+    public int cutValue;
+    public int rayShootValue;
+    public int rayAttackValue;
+    public int resultValue;
+    public bool canShoot;
 
     // 마이크 입력 받기 위한 오디오 클립
-    public AudioClip auc;
+    private AudioClip auc;
 
     // 샘플링 (44100개의 음원 샘플)
     private int sampleRate = 44100;
     private float[] samples;
-    
+
     // 샘플들의 평균값을 저장할 변수 및 0 이상의 값으로 만들기 위한 곱 변수
     private float rmsValue;
     private float modulate = 10000f;
 
-    // 결과값의 최대 제한값, 작은 소음에 의한 인식은 무시하도록 최소 제한값, 결과값, 음파 발사를 위한 최소 소리 크기값
-    public int maxValue;
-    public int cutValue;
-    public int resultValue;
-    public int rayShootValue;
-
-    public bool canShoot;
-
-    private float h;
-    private Rigidbody2D rb;
-
+    [Header ("Character 2D rigidBody movement")]
     public float maxSpeed;
     public float jumpForce;
     private bool isSpeedDown;
+    public bool canJump = true;
+
+    private float h;
+    private Rigidbody2D rb;
 
     void Start()
     {
@@ -47,6 +49,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        RaycastHit2D rayHit = Physics2D.Raycast(rb.position, Vector2.down, 1.1f);
+        Debug.DrawRay(rb.position, Vector2.down * 1.1f, Color.green);
+
+        if(rayHit && rayHit.collider.tag == "PLATFORM")
+        {
+            canJump = true;
+        }
+
         h = Input.GetAxisRaw("Horizontal");
         rb.AddForce(Vector2.right * h, ForceMode2D.Impulse);
 
@@ -56,7 +66,7 @@ public class PlayerController : MonoBehaviour
         }
         else if(isSpeedDown)
         {
-            rb.velocity *= new Vector2(0.96f, 1f);
+            rb.velocity *= new Vector2(0.9f, 1f);
             if(Mathf.Abs(rb.velocity.x) < 1f)
             {
                 rb.velocity = new Vector2(0f, rb.velocity.y);
@@ -72,8 +82,9 @@ public class PlayerController : MonoBehaviour
             isSpeedDown = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Jump") && canJump)
         {
+            canJump = false;
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 

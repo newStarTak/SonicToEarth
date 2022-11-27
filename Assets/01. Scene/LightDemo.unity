@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 195762207}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: RayGeneratePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -482,7 +482,7 @@ GameObject:
   - component: {fileID: 835679476}
   m_Layer: 0
   m_Name: DownWall (2)
-  m_TagString: Untagged
+  m_TagString: PLATFORM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -665,7 +665,7 @@ GameObject:
   - component: {fileID: 1184350929}
   - component: {fileID: 1184350931}
   - component: {fileID: 1184350930}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -700,14 +700,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4df47d01a5be0f8498098f3f0ef193c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  auc: {fileID: 0}
-  maxValue: 200
-  cutValue: 10
+  maxValue: 300
+  cutValue: 50
+  rayShootValue: 100
+  rayAttackValue: 200
   resultValue: 0
-  rayShootValue: 150
   canShoot: 1
   maxSpeed: 8
-  jumpForce: 20
+  jumpForce: 10
+  canJump: 1
 --- !u!212 &1184350928
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -853,8 +854,8 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 5
-  m_Material: {fileID: 0}
+  m_GravityScale: 2
+  m_Material: {fileID: 6200000, guid: 1381b34ffe4c7524cbf453327abbf2d8, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -998,7 +999,7 @@ GameObject:
   - component: {fileID: 1403548492}
   m_Layer: 0
   m_Name: DownWall (1)
-  m_TagString: Untagged
+  m_TagString: PLATFORM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1109,7 +1110,7 @@ GameObject:
   - component: {fileID: 1423354772}
   m_Layer: 0
   m_Name: LeftWall
-  m_TagString: Untagged
+  m_TagString: PLATFORM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1373,7 +1374,7 @@ GameObject:
   - component: {fileID: 1655840141}
   m_Layer: 0
   m_Name: DownWall
-  m_TagString: Untagged
+  m_TagString: PLATFORM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1484,7 +1485,7 @@ GameObject:
   - component: {fileID: 1663425181}
   m_Layer: 0
   m_Name: RightWall
-  m_TagString: Untagged
+  m_TagString: PLATFORM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1805,7 +1806,7 @@ GameObject:
   - component: {fileID: 2091530972}
   m_Layer: 0
   m_Name: UpWall
-  m_TagString: Untagged
+  m_TagString: PLATFORM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
