@@ -59,9 +59,10 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D rayHit = Physics2D.Raycast(rb.position, Vector2.down, 1.1f);
         Debug.DrawRay(rb.position, Vector2.down * 1.1f, Color.green);
 
-        if(rayHit && rayHit.collider.tag == "PLATFORM")
+        if(rayHit.collider.tag == "PLATFORM")
         {
             canJump = true;
+            Debug.Log("ray hit platform");
         }
 
         h = Input.GetAxisRaw("Horizontal");
@@ -123,6 +124,13 @@ public class PlayerController : MonoBehaviour
         }
 
         if (resultValue > rayShootValue && canShoot)
+        {
+            canShoot = false;
+            rayGenerator.RayGenerate();
+        }
+
+        // 디버깅용 마우스 클릭으로 음파 발사
+        if (Input.GetMouseButtonDown(0))
         {
             canShoot = false;
             rayGenerator.RayGenerate();
