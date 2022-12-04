@@ -77,6 +77,10 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
+        if(Input.GetKeyDown(KeyCode.A)) {
+            rayGenerator.RayGenerate();
+        }
+
         // Translate를 이용해 이동하면 벽에 부딪힐 경우 떨림 현상 발생, rigidBody 사용해 문제 해결
         //transform.Translate(new Vector2(walkSpeed * h * Time.deltaTime, 0));
 

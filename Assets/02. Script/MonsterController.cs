@@ -11,75 +11,63 @@ public class MonsterController : MonoBehaviour
 
     public GameObject player;
 
-    private bool sequence = true;
-    private bool taskAction = false;
+    private float toPlayerDistance;
+    private Vector3 toPlayerDirection;
 
     private void FixedUpdate()
     {
-        taskAction = onSight(player);
-
-        if (!taskAction) {
-            Vector3 traceDirection = (player.transform.position - gameObject.transform.position).normalized;
-            gameObject.transform.position += traceDirection * traceSpeed;
-        }
-
-        else
-            Debug.Log("Attcak!");
-    }
-
-    bool onSight(GameObject player)
-    {
-        float toPlayerDistance = Vector3.Distance(player.transform.position, gameObject.transform.position);
-
-        if (toPlayerDistance <= AISight)
-            return true;
-
-        else
-            return false;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-            Debug.Log("Hit");
-    }
-
-    /*
-    [SerializeField]
-    private float traceSpeed = 0.05f;
-    [SerializeField]
-    private float delayTime = 3.0f;
-
-    public GameObject player;
-
-    private Vector3 traceDirection;
-    private float toPlayerDistance;
-    private bool onAttack;
-    
-    void FixedUpdate()
-    {
-        toPlayerDistance = Vector3.Distance(player.transform.position, gameObject.transform.position);
-
-        if(toPlayerDistance > 2.5f) {
-            traceDirection = (player.transform.position - gameObject.transform.position).normalized;
-            gameObject.transform.position += traceDirection * traceSpeed;
-        }
+        if (OnHit())
+            Destroy(gameObject);
 
         else {
-            if(!onAttack) {
+            toPlayerDistance = DistanceToPlayer(player);
+            toPlayerDirection = DirectionToPlayer(player);
+
+            if (toPlayerDistance <= AISight) {
                 Debug.Log("Attack");
-                onAttack = true;
-                StartCoroutine(ActionDelay(delayTime));
+                Debug.Log("Wait");
+            }
+
+            else {
+                Trace(toPlayerDirection);
             }
         }
     }
 
-    private IEnumerator ActionDelay(float delayTime)
+    // Decorator [피격 인식]
+    private bool OnHit()
     {
-        while(true) {
-            yield return new WaitForSeconds(delayTime);
-            onAttack = false;
+        if (GameObject.Find("Trail(Clone)")) {
+            float toTrailDistance = Vector3.Distance(GameObject.Find("Trail(Clone)").transform.position, gameObject.transform.position);
+            if (toTrailDistance <= gameObject.transform.lossyScale.x / 2) {
+                Destroy(gameObject);
+                return true;
+            }
+
+            else
+                return false;
+        }
+
+        else {
+            return false;
         }
     }
-    */
+
+    // Service [Player와의 거리 연산]
+    private float DistanceToPlayer(GameObject player)
+    {
+        return Vector3.Distance(player.transform.position, gameObject.transform.position);
+    }
+
+    // Service [Player와의 방향 벡터 연산]
+    private Vector3 DirectionToPlayer(GameObject player)
+    {
+        return (player.transform.position - gameObject.transform.position).normalized;
+    }
+
+    // Task [Player를 추격]
+    public void Trace(Vector3 traceDirection)
+    {
+        gameObject.transform.position += traceDirection * traceSpeed;
+    }
 }

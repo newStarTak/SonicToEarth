@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - LANTERN
+  - TRAIL
   layers:
   - Default
   - TransparentFX
