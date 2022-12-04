@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     RayGenerator rayGenerator;
     [Header("Mic Input")]
-    // °á°ú°ªÀÇ ÃÖ´ë Á¦ÇÑ°ª, ÀÛÀº ¼ÒÀ½¿¡ ÀÇÇÑ ÀÎ½ÄÀº ¹«½ÃÇÏµµ·Ï ÃÖ¼Ò Á¦ÇÑ°ª, °á°ú°ª, À½ÆÄ ¹ß»ç¸¦ À§ÇÑ ÃÖ¼Ò ¼Ò¸® Å©±â°ª
+    // ê²°ê³¼ê°’ì˜ ìµœëŒ€ ì œí•œê°’, ì‘ì€ ì†ŒìŒì— ì˜í•œ ì¸ì‹ì€ ë¬´ì‹œí•˜ë„ë¡ ìµœì†Œ ì œí•œê°’, ê²°ê³¼ê°’, ìŒíŒŒ ë°œì‚¬ë¥¼ ìœ„í•œ ìµœì†Œ ì†Œë¦¬ í¬ê¸°ê°’
     public int maxValue;
     public int cutValue;
     [SerializeField]
@@ -15,14 +15,14 @@ public class PlayerController : MonoBehaviour
     public int resultValue;
     public bool canShoot = false;
 
-    // ¸¶ÀÌÅ© ÀÔ·Â ¹Ş±â À§ÇÑ ¿Àµğ¿À Å¬¸³
+    // ë§ˆì´í¬ ì…ë ¥ ë°›ê¸° ìœ„í•œ ì˜¤ë””ì˜¤ í´ë¦½
     private AudioClip auc;
 
-    // »ùÇÃ¸µ (44100°³ÀÇ À½¿ø »ùÇÃ)
+    // ìƒ˜í”Œë§ (44100ê°œì˜ ìŒì› ìƒ˜í”Œ)
     private int sampleRate = 44100;
     private float[] samples;
 
-    // »ùÇÃµéÀÇ Æò±Õ°ªÀ» ÀúÀåÇÒ º¯¼ö ¹× 0 ÀÌ»óÀÇ °ªÀ¸·Î ¸¸µé±â À§ÇÑ °ö º¯¼ö
+    // ìƒ˜í”Œë“¤ì˜ í‰ê· ê°’ì„ ì €ì¥í•  ë³€ìˆ˜ ë° 0 ì´ìƒì˜ ê°’ìœ¼ë¡œ ë§Œë“¤ê¸° ìœ„í•œ ê³± ë³€ìˆ˜
     private float rmsValue;
     private float modulate = 10000f;
 
@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     {
         rayGenerator = GameObject.Find("RayGenerator").GetComponent<RayGenerator>();
 
-        // samples ¹è¿­¿¡ »ùÇÃ °ª(44100°³) ÀúÀåÇØµÎ°í ¸¶ÀÌÅ© ÀÛµ¿ ½ÃÀÛ
+        // samples ë°°ì—´ì— ìƒ˜í”Œ ê°’(44100ê°œ) ì €ì¥í•´ë‘ê³  ë§ˆì´í¬ ì‘ë™ ì‹œì‘
         samples = new float[sampleRate];
         auc = Microphone.Start(Microphone.devices[0].ToString(), true, 1, sampleRate);
 
@@ -55,13 +55,15 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // Ä³¸¯ÅÍ ¹ß ¾Æ·¡·Î ÀÛÀº ·¹ÀÌ »ı¼ºÇØ Á¡ÇÁ »óÅÂ Ã¼Å©
+        // ìºë¦­í„° ë°œ ì•„ë˜ë¡œ ì‘ì€ ë ˆì´ ìƒì„±í•´ ì í”„ ìƒíƒœ ì²´í¬
         RaycastHit2D rayHit = Physics2D.Raycast(rb.position, Vector2.down, 1.1f);
         Debug.DrawRay(rb.position, Vector2.down * 1.1f, Color.green);
 
-        if(rayHit && rayHit.collider.tag == "PLATFORM")
-        {
-            canJump = true;
+        if (rayHit) {
+            if (rayHit.collider.tag == "PLATFORM") {
+                canJump = true;
+                Debug.Log("ray hit platform");
+            }
         }
 
         h = Input.GetAxisRaw("Horizontal");
@@ -95,12 +97,12 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
-        // Translate¸¦ ÀÌ¿ëÇØ ÀÌµ¿ÇÏ¸é º®¿¡ ºÎµúÈú °æ¿ì ¶³¸² Çö»ó ¹ß»ı, rigidBody »ç¿ëÇØ ¹®Á¦ ÇØ°á
+        // Translateë¥¼ ì´ìš©í•´ ì´ë™í•˜ë©´ ë²½ì— ë¶€ë”ªí ê²½ìš° ë–¨ë¦¼ í˜„ìƒ ë°œìƒ, rigidBody ì‚¬ìš©í•´ ë¬¸ì œ í•´ê²°
         //transform.Translate(new Vector2(walkSpeed * h * Time.deltaTime, 0));
 
         auc.GetData(samples, 0);
 
-        // »ùÇÃ°ªÀ» Àı´ë°ªÀ¸·Î ¸¸µå´Â °úÁ¤
+        // ìƒ˜í”Œê°’ì„ ì ˆëŒ€ê°’ìœ¼ë¡œ ë§Œë“œëŠ” ê³¼ì •
         float sum = 0;
         for(int i = 0; i < samples.Length; i++)
         {
@@ -108,7 +110,7 @@ public class PlayerController : MonoBehaviour
         }
         rmsValue = Mathf.Sqrt(sum / samples.Length);
 
-        // »ùÇÃ°ªÀÌ ³Ê¹« ÀÛ°Ô ³ª¿Í ÀÏÁ¤ ¼ö¸¦ °öÇØ ÁÖ¾î 0 ÀÌ»ó ÃÖ´ë Á¦ÇÑ°ª »çÀÌÀÇ Á¤¼ö·Î º¯È¯
+        // ìƒ˜í”Œê°’ì´ ë„ˆë¬´ ì‘ê²Œ ë‚˜ì™€ ì¼ì • ìˆ˜ë¥¼ ê³±í•´ ì£¼ì–´ 0 ì´ìƒ ìµœëŒ€ ì œí•œê°’ ì‚¬ì´ì˜ ì •ìˆ˜ë¡œ ë³€í™˜
         rmsValue *= modulate;
         rmsValue = Mathf.Clamp(rmsValue, 0, maxValue);
         resultValue = Mathf.RoundToInt(rmsValue);
@@ -124,7 +126,8 @@ public class PlayerController : MonoBehaviour
             rayGenerator.RayGenerate();
         }
 
-        // 
+        // ë””ë²„ê¹…ìš© ë§ˆìš°ìŠ¤ í´ë¦­ìœ¼ë¡œ ìŒíŒŒ ë°œì‚¬
+
         if (Input.GetMouseButtonDown(0))
         {
             canShoot = false;
