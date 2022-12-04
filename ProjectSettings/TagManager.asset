@@ -4,9 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - FOLLOWCAM
   - LANTERN
   - PLATFORM
-  - FOLLOWCAM
   layers:
   - Default
   - TransparentFX
