@@ -62,7 +62,6 @@ public class PlayerController : MonoBehaviour
         if (rayHit) {
             if (rayHit.collider.tag == "PLATFORM") {
                 canJump = true;
-                Debug.Log("ray hit platform");
             }
         }
 
@@ -128,7 +127,7 @@ public class PlayerController : MonoBehaviour
 
         // 디버깅용 마우스 클릭으로 음파 발사
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && canShoot)
         {
             canShoot = false;
             rayGenerator.RayGenerate();
