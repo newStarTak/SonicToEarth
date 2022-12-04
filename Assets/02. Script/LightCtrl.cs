@@ -68,7 +68,7 @@ public class LightCtrl : MonoBehaviour
         if(isTrail)
         {
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().canShoot = true;
-            // GameObject.FindGameObjectWithTag("FOLLOWCAM").GetComponent<CameraCtrl>().ZoomOut();
+            GameObject.FindGameObjectWithTag("FOLLOWCAM").GetComponent<CameraCtrl>().ZoomOut();
         }
     }
 }
