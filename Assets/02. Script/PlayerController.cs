@@ -59,10 +59,11 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D rayHit = Physics2D.Raycast(rb.position, Vector2.down, 1.1f);
         Debug.DrawRay(rb.position, Vector2.down * 1.1f, Color.green);
 
-        if(rayHit.collider.tag == "PLATFORM")
-        {
-            canJump = true;
-            Debug.Log("ray hit platform");
+        if (rayHit) {
+            if (rayHit.collider.tag == "PLATFORM") {
+                canJump = true;
+                Debug.Log("ray hit platform");
+            }
         }
 
         h = Input.GetAxisRaw("Horizontal");
@@ -94,10 +95,6 @@ public class PlayerController : MonoBehaviour
         {
             canJump = false;
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-        }
-
-        if(Input.GetKeyDown(KeyCode.A)) {
-            rayGenerator.RayGenerate();
         }
 
         // Translate를 이용해 이동하면 벽에 부딪힐 경우 떨림 현상 발생, rigidBody 사용해 문제 해결
