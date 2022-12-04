@@ -123,5 +123,12 @@ public class PlayerController : MonoBehaviour
             canShoot = false;
             rayGenerator.RayGenerate();
         }
+
+        // 
+        if (Input.GetMouseButtonDown(0))
+        {
+            canShoot = false;
+            rayGenerator.RayGenerate();
+        }
     }
 }
