@@ -9,10 +9,11 @@ public class PlayerController : MonoBehaviour
     // 결과값의 최대 제한값, 작은 소음에 의한 인식은 무시하도록 최소 제한값, 결과값, 음파 발사를 위한 최소 소리 크기값
     public int maxValue;
     public int cutValue;
-    public int rayShootValue;
+    [SerializeField]
+    private int rayShootValue = 100;
     public int rayAttackValue;
     public int resultValue;
-    public bool canShoot;
+    public bool canShoot = false;
 
     // 마이크 입력 받기 위한 오디오 클립
     private AudioClip auc;
@@ -42,9 +43,14 @@ public class PlayerController : MonoBehaviour
         samples = new float[sampleRate];
         auc = Microphone.Start(Microphone.devices[0].ToString(), true, 1, sampleRate);
 
-        canShoot = true;
-
         rb = GetComponent<Rigidbody2D>();
+
+        Invoke("MicEnable", 1.0f);
+    }
+
+    void MicEnable()
+    {
+        canShoot = true;
     }
 
     void Update()
@@ -112,7 +118,7 @@ public class PlayerController : MonoBehaviour
             resultValue = 0;
         }
 
-        if ((resultValue > rayShootValue || Input.GetMouseButton(0)) && canShoot)
+        if (resultValue > rayShootValue && canShoot)
         {
             canShoot = false;
             rayGenerator.RayGenerate();

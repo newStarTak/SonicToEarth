@@ -590,9 +590,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1085836825}
   - component: {fileID: 1085836824}
+  - component: {fileID: 1085836826}
   m_Layer: 0
   m_Name: Cinemachine FollowCam
-  m_TagString: Untagged
+  m_TagString: FOLLOWCAM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -651,6 +652,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1085836826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085836823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f044104f658b42445991c49de7be4666, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1184350925
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,7 +718,7 @@ MonoBehaviour:
   rayShootValue: 100
   rayAttackValue: 200
   resultValue: 0
-  canShoot: 1
+  canShoot: 0
   maxSpeed: 8
   jumpForce: 10
   canJump: 1
@@ -1897,7 +1910,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2091530971}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 9, z: 0}
+  m_LocalPosition: {x: 0, y: 9, z: 0}
   m_LocalScale: {x: 1, y: 45, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
