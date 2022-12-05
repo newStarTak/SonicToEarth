@@ -39,8 +39,6 @@ public class RayGenerator : MonoBehaviour
             if (hit.collider != null) {
                 StartCoroutine(GenerateTrail(trail, hit.point, hit.normal, ReflectingDistance, true, hit.collider.name));
 
-                Debug.Log("Init Expected Hit Obj Tag: " + hit.collider.tag);
-
                 /* 레이를 미리 쏴봤을 때 음파 상호작용 오브젝트라면
                  * isNextRayHitSpecial 변수를 true로 설정해 실제 충돌을 대비해둠
                  * 실제 충돌 처리는 반사 루프 안에서 구현해둠 */
@@ -63,7 +61,7 @@ public class RayGenerator : MonoBehaviour
     private IEnumerator GenerateTrail(TrailRenderer Trail, Vector3 ReflectingPoint, Vector3 ReflectingNormal, float ReflectingDistance, bool MadeImpact, string ColliderName)
     {
         float distance;    // Ray가 진행 할 남은 거리
-        float startingDistance;    // Ray가 진행 할 전체 거리
+        float startingDistance;    // Ray가 진행 할 전체 거리         
 
         Vector3 startPosition = Trail.transform.position;
         Vector3 direction = (ReflectingPoint - Trail.transform.position).normalized;    // Ray의 반사 지점으로의 Direction Vector 연산
@@ -107,8 +105,6 @@ public class RayGenerator : MonoBehaviour
                 // 남아 있는 ReflectingDistance로 다음 반사 지점까지 도달 할 수 있는 경우
                 if (hitReflection.collider != null) {
 
-                    Debug.Log("Hit Expected Obj Tag: " + hitReflection.collider.tag);
-
                     /* 실제로 음파 상호작용 오브젝트와 충돌해 상호작용을 하게 함
                      * 변수 검사를 먼저 해야 다음 충돌 때 정상적으로 음파 상호작용이 이루어짐 */
                     if (prevColl)
@@ -116,7 +112,6 @@ public class RayGenerator : MonoBehaviour
                         prevColl.GetComponent<LightCtrl>().isUp = true;
                         GameObject.FindGameObjectWithTag("FOLLOWCAM").GetComponent<CameraCtrl>().ZoomIn(prevColl.gameObject);
                         prevColl = null;
-                        Debug.Log("- ! = = = = = < L A N T E R N > = = = = = ! -");
                     }
                     else
                     {
@@ -155,7 +150,6 @@ public class RayGenerator : MonoBehaviour
                         prevColl.GetComponent<LightCtrl>().isUp = true;
                         GameObject.FindGameObjectWithTag("FOLLOWCAM").GetComponent<CameraCtrl>().ZoomIn(prevColl.gameObject);
                         prevColl = null;
-                        Debug.Log("- ! = = = = = < L A N T E R N > = = = = = ! - Last Hit");
                     }
                     else
                     {

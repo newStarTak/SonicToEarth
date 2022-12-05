@@ -8,16 +8,21 @@ public class MonsterController : MonoBehaviour
     private float AISight = 2.5f;
     [SerializeField]
     private float traceSpeed = 0.05f;
+    [SerializeField]
+    private float avoid = 0.3f;
 
     public GameObject player;
 
     private float toPlayerDistance;
     private Vector3 toPlayerDirection;
 
+    private bool notRedundantHit = true;
+
     private void FixedUpdate()
     {
-        if (OnHit())
-            Destroy(gameObject);
+        if (OnHit() && notRedundantHit) {
+            RandomHit(avoid);
+        }
 
         else {
             toPlayerDistance = DistanceToPlayer(player);
@@ -40,17 +45,13 @@ public class MonsterController : MonoBehaviour
         if (GameObject.Find("Trail(Clone)")) {
             float toTrailDistance = Vector3.Distance(GameObject.Find("Trail(Clone)").transform.position, gameObject.transform.position);
             if (toTrailDistance <= gameObject.transform.lossyScale.x / 2) {
-                Destroy(gameObject);
                 return true;
             }
 
-            else
-                return false;
+            notRedundantHit = false;
         }
 
-        else {
-            return false;
-        }
+        return false;
     }
 
     // Service [Player와의 거리 연산]
@@ -66,8 +67,25 @@ public class MonsterController : MonoBehaviour
     }
 
     // Task [Player를 추격]
-    public void Trace(Vector3 traceDirection)
+    private void Trace(Vector3 traceDirection)
     {
         gameObject.transform.position += traceDirection * traceSpeed;
+    }
+
+    // Task [피격 판정]
+    private void RandomHit(float avoid)
+    {
+        notRedundantHit = false;
+
+        float randN = Random.Range(0.0f, 1.0f);
+
+        if(randN < avoid) {
+            Debug.Log("Avoidance");
+        }
+
+        else {
+            Debug.Log("Hit!");
+            Destroy(gameObject);
+        }
     }
 }
