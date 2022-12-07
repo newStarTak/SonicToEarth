@@ -22,7 +22,7 @@ public class CameraCtrl : MonoBehaviour
     public void ZoomOut()
     {
         cam.Follow = GameObject.FindGameObjectWithTag("Player").transform;
-        cam.m_Lens.OrthographicSize = 10;
+        cam.m_Lens.OrthographicSize = 5;
     }
 
     // Update is called once per frame

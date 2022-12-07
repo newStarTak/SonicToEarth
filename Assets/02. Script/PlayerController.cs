@@ -35,6 +35,11 @@ public class PlayerController : MonoBehaviour
     private float h;
     private Rigidbody2D rb;
 
+    [Header("Character Animation N Sprite")]
+    [SerializeField]
+    private Animator anim;
+    private SpriteRenderer sprRend;
+
     void Start()
     {
         rayGenerator = GameObject.Find("RayGenerator").GetComponent<RayGenerator>();
@@ -44,6 +49,9 @@ public class PlayerController : MonoBehaviour
         auc = Microphone.Start(Microphone.devices[0].ToString(), true, 1, sampleRate);
 
         rb = GetComponent<Rigidbody2D>();
+
+        anim = GetComponent<Animator>();
+        sprRend = GetComponent<SpriteRenderer>();
 
         Invoke("MicEnable", 1.0f);
     }
@@ -68,7 +76,16 @@ public class PlayerController : MonoBehaviour
         h = Input.GetAxisRaw("Horizontal");
         rb.AddForce(Vector2.right * h, ForceMode2D.Impulse);
 
-        if(Mathf.Abs(rb.velocity.x) > maxSpeed)
+        if (rb.velocity.x > 0)
+        {
+            sprRend.flipX = false;
+        }
+        else if (rb.velocity.x < 0)
+        {
+            sprRend.flipX = true;
+        }
+
+        if (Mathf.Abs(rb.velocity.x) > maxSpeed)
         {
             rb.velocity = new Vector2(maxSpeed * h, rb.velocity.y);
         }
@@ -78,11 +95,13 @@ public class PlayerController : MonoBehaviour
             if(Mathf.Abs(rb.velocity.x) < 1f)
             {
                 rb.velocity = new Vector2(0f, rb.velocity.y);
+                anim.SetBool("isRun", false);
             }
         }
 
         if(Input.GetButtonDown("Horizontal"))
         {
+            anim.SetBool("isRun", true);
             isSpeedDown = false;
         }
         else if(Input.GetButtonUp("Horizontal") && !Input.GetButton("Horizontal"))
