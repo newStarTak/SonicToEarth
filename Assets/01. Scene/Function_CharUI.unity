@@ -584,9 +584,10 @@ MonoBehaviour:
   rayAttackValue: 200
   resultValue: 0
   canShoot: 0
-  maxSpeed: 8
+  maxSpeed: 5
   jumpForce: 10
   canJump: 1
+  anim: {fileID: 0}
 --- !u!212 &394221693
 SpriteRenderer:
   m_ObjectHideFlags: 0
