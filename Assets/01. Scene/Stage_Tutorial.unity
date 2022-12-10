@@ -274,7 +274,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &63805361
 GameObject:
@@ -326,7 +326,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_Follow: {fileID: 394221688}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5
@@ -359,7 +359,7 @@ Transform:
   m_Children:
   - {fileID: 400844605}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &63805365
 MonoBehaviour:
@@ -378,6 +378,38 @@ MonoBehaviour:
   m_BoundingShape2D: {fileID: 937456378}
   m_ConfineScreenEdges: 1
   m_Damping: 0
+--- !u!1 &269670911
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 269670912}
+  m_Layer: 0
+  m_Name: Special Objects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &269670912
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269670911}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 951455830}
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &336598441
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,7 +898,7 @@ GameObject:
   - component: {fileID: 937456379}
   - component: {fileID: 937456378}
   m_Layer: 2
-  m_Name: coll
+  m_Name: CameraMoveArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -897,10 +929,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -23.570583, y: 9.78764}
-      - {x: -23.37186, y: -9.54628}
-      - {x: 23.557697, y: -9.186018}
-      - {x: 23.17284, y: 9.621172}
+    - - {x: -24, y: 10}
+      - {x: -24, y: -10}
+      - {x: 24, y: -10}
+      - {x: 24, y: 10}
 --- !u!4 &937456379
 Transform:
   m_ObjectHideFlags: 0
@@ -914,18 +946,18 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &951455829
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 269670912}
     m_Modifications:
     - target: {fileID: 7032620925945101857, guid: 5c10614c7ddd56742998c9303708ee81, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7032620925945101857, guid: 5c10614c7ddd56742998c9303708ee81, type: 3}
       propertyPath: m_LocalPosition.x
@@ -973,6 +1005,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c10614c7ddd56742998c9303708ee81, type: 3}
+--- !u!4 &951455830 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7032620925945101857, guid: 5c10614c7ddd56742998c9303708ee81, type: 3}
+  m_PrefabInstance: {fileID: 951455829}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1512673558
 GameObject:
   m_ObjectHideFlags: 0
@@ -1017,7 +1054,7 @@ GameObject:
   - component: {fileID: 1713249503}
   - component: {fileID: 1713249505}
   m_Layer: 0
-  m_Name: Tilemap
+  m_Name: Tilemap_Stage
   m_TagString: PLATFORM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2635,7 +2672,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2128493090
 GameObject:
@@ -2648,7 +2685,7 @@ GameObject:
   - component: {fileID: 2128493092}
   - component: {fileID: 2128493091}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: Grid_Stage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2680,5 +2717,5 @@ Transform:
   m_Children:
   - {fileID: 1713249502}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

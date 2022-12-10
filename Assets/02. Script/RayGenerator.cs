@@ -113,10 +113,13 @@ public class RayGenerator : MonoBehaviour
                      * 변수 검사를 먼저 해야 다음 충돌 때 정상적으로 음파 상호작용이 이루어짐 */
                     if (prevColl)
                     {
-                        prevColl.GetComponent<LightCtrl>().isUp = true;
-                        GameObject.FindGameObjectWithTag("FOLLOWCAM").GetComponent<CameraCtrl>().ZoomIn(prevColl.gameObject);
-                        prevColl = null;
-                        Debug.Log("- ! = = = = = < L A N T E R N > = = = = = ! -");
+                        if (!prevColl.GetComponent<LightCtrl>().isUp)
+                        {
+                            prevColl.GetComponent<LightCtrl>().isUp = true;
+                            GameObject.FindGameObjectWithTag("FOLLOWCAM").GetComponent<CameraCtrl>().ZoomIn(prevColl.gameObject);
+                            prevColl = null;
+                            Debug.Log("- ! = = = = = < L A N T E R N > = = = = = ! -");
+                        }
                     }
                     else
                     {
@@ -152,10 +155,13 @@ public class RayGenerator : MonoBehaviour
                      * 변수 검사를 먼저 해야 다음 충돌 때 정상적으로 음파 상호작용이 이루어짐 */
                     if (prevColl)
                     {
-                        prevColl.GetComponent<LightCtrl>().isUp = true;
-                        GameObject.FindGameObjectWithTag("FOLLOWCAM").GetComponent<CameraCtrl>().ZoomIn(prevColl.gameObject);
-                        prevColl = null;
-                        Debug.Log("- ! = = = = = < L A N T E R N > = = = = = ! - Last Hit");
+                        if (!prevColl.GetComponent<LightCtrl>().isUp)
+                        {
+                            prevColl.GetComponent<LightCtrl>().isUp = true;
+                            GameObject.FindGameObjectWithTag("FOLLOWCAM").GetComponent<CameraCtrl>().ZoomIn(prevColl.gameObject);
+                            prevColl = null;
+                            Debug.Log("- ! = = = = = < L A N T E R N > = = = = = ! - Last Hit");
+                        }
                     }
                     else
                     {
