@@ -25,9 +25,8 @@ public class CameraCtrl : MonoBehaviour
         canZoomOut = false;
         cam.Follow = target.transform;
         cam.m_Lens.OrthographicSize = 5;
-        cam.GetCinemachineComponent<CinemachineTransposer>().m_XDamping = 5f;
-
-        Invoke("ZoooomOut", 5.0f);
+        cam.GetCinemachineComponent<CinemachineTransposer>().m_XDamping = 0.1f;
+        Invoke("ZoooomOut", 0.1f);
     }
 
     public void ZoomOut()
@@ -43,7 +42,7 @@ public class CameraCtrl : MonoBehaviour
     {
         cam.Follow = GameObject.FindGameObjectWithTag("Player").transform;
         cam.m_Lens.OrthographicSize = 5;
-        cam.GetCinemachineComponent<CinemachineTransposer>().m_XDamping = 2f;
+        cam.GetCinemachineComponent<CinemachineTransposer>().m_XDamping = 20f;
     }
 
     // Update is called once per frame

@@ -112,7 +112,7 @@ public class RayGenerator : MonoBehaviour
                     {
                         if (prevColl.tag == "DOOR")
                         {
-                            Instantiate(bigLight, Trail.transform.position, Quaternion.identity);
+                            Instantiate(bigLight, GameObject.FindGameObjectWithTag("Respawn").transform.position, Quaternion.identity);
 
                             GameObject.FindGameObjectWithTag("FOLLOWCAM").GetComponent<CameraCtrl>().
                                 ZoooomIn(GameObject.FindGameObjectWithTag("Respawn"));
@@ -135,6 +135,10 @@ public class RayGenerator : MonoBehaviour
                                 ZoomIn(prevColl.gameObject);
                             prevColl = null;
                             Debug.Log("- ! = = = = = < L A N T E R N > = = = = = ! -");
+                        }
+                        else
+                        {
+                            prevColl = null;
                         }
                     }
                     else
@@ -173,7 +177,7 @@ public class RayGenerator : MonoBehaviour
                     {
                         if (prevColl.tag == "DOOR")
                         {
-                            Instantiate(bigLight, Trail.transform.position, Quaternion.identity);
+                            Instantiate(bigLight, GameObject.FindGameObjectWithTag("Respawn").transform.position, Quaternion.identity);
 
                             GameObject.FindGameObjectWithTag("FOLLOWCAM").GetComponent<CameraCtrl>().
                                 ZoooomIn(GameObject.FindGameObjectWithTag("Respawn"));
@@ -196,6 +200,10 @@ public class RayGenerator : MonoBehaviour
                                 ZoomIn(prevColl.gameObject);
                             prevColl = null;
                             Debug.Log("- ! = = = = = < L A N T E R N > = = = = = ! - Last Hit");
+                        }
+                        else
+                        {
+                            prevColl = null;
                         }
                     }
                     else

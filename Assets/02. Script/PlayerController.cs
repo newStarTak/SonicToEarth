@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -63,6 +64,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if(transform.position.y < -15)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
         // 캐릭터 발 아래로 작은 레이 생성해 점프 상태 체크
         RaycastHit2D rayHit = Physics2D.Raycast(rb.position, Vector2.down, 1.1f);
         Debug.DrawRay(rb.position, Vector2.down * 1.1f, Color.green);
