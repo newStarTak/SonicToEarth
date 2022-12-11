@@ -10,13 +10,24 @@ public class MonsterController : MonoBehaviour
     private float traceSpeed = 0.05f;
     [SerializeField]
     private float avoid = 0.3f;
+    [SerializeField]
+    private float attackDelay = 2.0f;
 
     public GameObject player;
+    public Animator animator;
 
     private float toPlayerDistance;
     private Vector3 toPlayerDirection;
 
     private bool notRedundantHit = true;
+    private bool onDestroy = false;
+    private bool onAttack = false;
+    private SpriteRenderer spriteRenderer;
+
+    private void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     private void FixedUpdate()
     {
@@ -24,13 +35,16 @@ public class MonsterController : MonoBehaviour
             RandomHit(avoid);
         }
 
-        else {
+        else if(!onDestroy) {
             toPlayerDistance = DistanceToPlayer(player);
             toPlayerDirection = DirectionToPlayer(player);
+            reverseToPlayer(toPlayerDirection);
 
             if (toPlayerDistance <= AISight) {
-                Debug.Log("Attack");
-                Debug.Log("Wait");
+                if(!onAttack) {
+                    Debug.Log("Attack");
+                    Wait(attackDelay);
+                }
             }
 
             else {
@@ -42,14 +56,18 @@ public class MonsterController : MonoBehaviour
     // Decorator [피격 인식]
     private bool OnHit()
     {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Monster_HIT") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f && notRedundantHit) {
+            animator.SetBool("ON_HIT", false);
+        }
+
         if (GameObject.Find("Trail(Clone)")) {
             float toTrailDistance = Vector3.Distance(GameObject.Find("Trail(Clone)").transform.position, gameObject.transform.position);
-            if (toTrailDistance <= gameObject.transform.lossyScale.x / 2) {
+            if (toTrailDistance <= gameObject.transform.lossyScale.x + 1) {
                 return true;
             }
-
-            notRedundantHit = false;
         }
+
+        notRedundantHit = true;
 
         return false;
     }
@@ -66,6 +84,15 @@ public class MonsterController : MonoBehaviour
         return (player.transform.position - gameObject.transform.position).normalized;
     }
 
+    // Service [Player 방향으로 바라보도록 좌우 변환]
+    private void reverseToPlayer(Vector3 toPlayerDirection)
+    {
+        if (toPlayerDirection.x < 0)
+            spriteRenderer.flipX = false;
+        else
+            spriteRenderer.flipX = true;
+    }
+
     // Task [Player를 추격]
     private void Trace(Vector3 traceDirection)
     {
@@ -75,6 +102,7 @@ public class MonsterController : MonoBehaviour
     // Task [피격 판정]
     private void RandomHit(float avoid)
     {
+        animator.SetBool("ON_HIT", true);
         notRedundantHit = false;
 
         float randN = Random.Range(0.0f, 1.0f);
@@ -85,7 +113,26 @@ public class MonsterController : MonoBehaviour
 
         else {
             Debug.Log("Hit!");
-            Destroy(gameObject);
+            onDestroy = true;
+            spriteRenderer.color = new Color(255f, 0f, 0f, 0.5f);
+            Destroy(gameObject, 0.5f);
         }
+    }
+
+    // Task [공격 간 딜레이]
+    private void Wait(float attackDelay)
+    {
+        onAttack = true;
+        Invoke("AttackDelay", attackDelay);
+    }
+
+    private void AttackDelay()
+    {
+        onAttack = false;
+    }
+
+    private void Attack()
+    {
+        // Instantiate(Bullet, attackPos.transform.position, attackPos.transform.rotation);
     }
 }

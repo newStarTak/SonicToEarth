@@ -166,9 +166,33 @@ PrefabInstance:
       value: Monster
       objectReference: {fileID: 0}
     - target: {fileID: 6770801338143294908, guid: ef9dcaede2102504c80cd5e8d1685f0c, type: 3}
+      propertyPath: avoid
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6770801338143294908, guid: ef9dcaede2102504c80cd5e8d1685f0c, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1184350925}
+    - target: {fileID: 6770801338143294908, guid: ef9dcaede2102504c80cd5e8d1685f0c, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1743652331}
+    - target: {fileID: 6770801338143294909, guid: ef9dcaede2102504c80cd5e8d1685f0c, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6770801338143294909, guid: ef9dcaede2102504c80cd5e8d1685f0c, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6770801338143294909, guid: ef9dcaede2102504c80cd5e8d1685f0c, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6770801338143294909, guid: ef9dcaede2102504c80cd5e8d1685f0c, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6770801338143294910, guid: ef9dcaede2102504c80cd5e8d1685f0c, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1867,6 +1891,31 @@ MonoBehaviour:
   isTrail: 0
   isLantern: 1
   maxRadius: 8
+--- !u!1 &1743652327 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6770801338143294899, guid: ef9dcaede2102504c80cd5e8d1685f0c, type: 3}
+  m_PrefabInstance: {fileID: 416144003}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1743652331
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743652327}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 204c7ae5f6e2a9f43aae9759eb17a2e4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2091530971
 GameObject:
   m_ObjectHideFlags: 0
