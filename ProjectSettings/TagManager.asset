@@ -7,6 +7,9 @@ TagManager:
   - FOLLOWCAM
   - LANTERN
   - PLATFORM
+  - TRAIL
+  - DOOR
+  - FAKEDOOR
   layers:
   - Default
   - TransparentFX

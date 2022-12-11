@@ -21,6 +21,7 @@ public class RayGenerator : MonoBehaviour
     public Collider2D prevColl; 
 
     public GameObject hitLight;
+    public GameObject bigLight;
     public GameObject hitParticle;
     public float lifeTime;
 
@@ -42,7 +43,7 @@ public class RayGenerator : MonoBehaviour
                 /* 레이를 미리 쏴봤을 때 음파 상호작용 오브젝트라면
                  * isNextRayHitSpecial 변수를 true로 설정해 실제 충돌을 대비해둠
                  * 실제 충돌 처리는 반사 루프 안에서 구현해둠 */
-                if (hit.collider.tag == "LANTERN")
+                if (hit.collider.tag == "LANTERN" || hit.collider.tag == "DOOR")
                 {
                     prevColl = hit.collider;
                 }
@@ -109,12 +110,35 @@ public class RayGenerator : MonoBehaviour
                      * 변수 검사를 먼저 해야 다음 충돌 때 정상적으로 음파 상호작용이 이루어짐 */
                     if (prevColl)
                     {
-                        if (!prevColl.GetComponent<LightCtrl>().isUp)
+                        if (prevColl.tag == "DOOR")
+                        {
+                            Instantiate(bigLight, GameObject.FindGameObjectWithTag("Respawn").transform.position, Quaternion.identity);
+
+                            GameObject.FindGameObjectWithTag("FOLLOWCAM").GetComponent<CameraCtrl>().
+                                ZoooomIn(GameObject.FindGameObjectWithTag("Respawn"));
+
+                            foreach (GameObject door in GameObject.FindGameObjectsWithTag("DOOR"))
+                            {
+                                Destroy(door);
+                            }
+                            foreach (GameObject door in GameObject.FindGameObjectsWithTag("FAKEDOOR"))
+                            {
+                                Destroy(door);
+                            }
+
+                            prevColl = null;
+                        }
+                        else if (!prevColl.GetComponent<LightCtrl>().isUp)
                         {
                             prevColl.GetComponent<LightCtrl>().isUp = true;
-                            GameObject.FindGameObjectWithTag("FOLLOWCAM").GetComponent<CameraCtrl>().ZoomIn(prevColl.gameObject);
+                            GameObject.FindGameObjectWithTag("FOLLOWCAM").GetComponent<CameraCtrl>().
+                                ZoomIn(prevColl.gameObject);
                             prevColl = null;
                             Debug.Log("- ! = = = = = < L A N T E R N > = = = = = ! -");
+                        }
+                        else
+                        {
+                            prevColl = null;
                         }
                     }
                     else
@@ -128,7 +152,7 @@ public class RayGenerator : MonoBehaviour
 
                     /* 레이를 미리 쏴봤을 때 음파 상호작용 오브젝트라면
                      * isNextRayHitSpecial 변수를 true로 설정해 실제 충돌을 대비해둠 */
-                    if (hitReflection.collider.tag == "LANTERN")
+                    if (hitReflection.collider.tag == "LANTERN" || hitReflection.collider.tag == "DOOR")
                     {
                         prevColl = hitReflection.collider;
                     }
@@ -151,12 +175,35 @@ public class RayGenerator : MonoBehaviour
                      * 변수 검사를 먼저 해야 다음 충돌 때 정상적으로 음파 상호작용이 이루어짐 */
                     if (prevColl)
                     {
-                        if (!prevColl.GetComponent<LightCtrl>().isUp)
+                        if (prevColl.tag == "DOOR")
+                        {
+                            Instantiate(bigLight, GameObject.FindGameObjectWithTag("Respawn").transform.position, Quaternion.identity);
+
+                            GameObject.FindGameObjectWithTag("FOLLOWCAM").GetComponent<CameraCtrl>().
+                                ZoooomIn(GameObject.FindGameObjectWithTag("Respawn"));
+
+                            foreach (GameObject door in GameObject.FindGameObjectsWithTag("DOOR"))
+                            {
+                                Destroy(door);
+                            }
+                            foreach (GameObject door in GameObject.FindGameObjectsWithTag("FAKEDOOR"))
+                            {
+                                Destroy(door);
+                            }
+
+                            prevColl = null;
+                        }
+                        else if (!prevColl.GetComponent<LightCtrl>().isUp)
                         {
                             prevColl.GetComponent<LightCtrl>().isUp = true;
-                            GameObject.FindGameObjectWithTag("FOLLOWCAM").GetComponent<CameraCtrl>().ZoomIn(prevColl.gameObject);
+                            GameObject.FindGameObjectWithTag("FOLLOWCAM").GetComponent<CameraCtrl>().
+                                ZoomIn(prevColl.gameObject);
                             prevColl = null;
                             Debug.Log("- ! = = = = = < L A N T E R N > = = = = = ! - Last Hit");
+                        }
+                        else
+                        {
+                            prevColl = null;
                         }
                     }
                     else
@@ -170,9 +217,9 @@ public class RayGenerator : MonoBehaviour
 
                     /* 레이를 미리 쏴봤을 때 음파 상호작용 오브젝트라면
                      * isNextRayHitSpecial 변수를 true로 설정해 실제 충돌을 대비해둠 */
-                    if (hitReflectionLast.collider.tag == "LANTERN")
+                    if (hitReflectionLast.collider.tag == "LANTERN" || hitReflectionLast.collider.tag == "DOOR")
                     {
-                        prevColl = hitReflection.collider;
+                        prevColl = hitReflectionLast.collider;
                     }
 
                     if (hitReflectionLast.collider != null) {

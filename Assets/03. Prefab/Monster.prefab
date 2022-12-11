@@ -126,6 +126,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+
 --- !u!1001 &6262356434580028710
 PrefabInstance:
   m_ObjectHideFlags: 0
