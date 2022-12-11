@@ -473,6 +473,7 @@ GameObject:
   - component: {fileID: 339749894}
   - component: {fileID: 339749895}
   - component: {fileID: 339749896}
+  - component: {fileID: 339749897}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -560,14 +561,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4df47d01a5be0f8498098f3f0ef193c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  auc: {fileID: 0}
   maxValue: 0
   cutValue: 0
-  resultValue: 0
   rayShootValue: 0
+  rayAttackValue: 0
+  resultValue: 0
   canShoot: 0
-  maxSpeed: 0
-  jumpForce: 0
+  maxSpeed: 5
+  jumpForce: 5
+  canJump: 1
+  anim: {fileID: 0}
 --- !u!50 &339749895
 Rigidbody2D:
   serializedVersion: 4
@@ -588,7 +591,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!70 &339749896
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -605,6 +608,26 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
+--- !u!95 &339749897
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339749891}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eae08e7d889d7ab4a8b4643ce6de2acf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &752944194
 GameObject:
   m_ObjectHideFlags: 0
