@@ -109,7 +109,6 @@ public class RayGenerator : MonoBehaviour
                      * 변수 검사를 먼저 해야 다음 충돌 때 정상적으로 음파 상호작용이 이루어짐 */
                     if (prevColl)
                     {
-<<<<<<< HEAD
                         if (!prevColl.GetComponent<LightCtrl>().isUp)
                         {
                             prevColl.GetComponent<LightCtrl>().isUp = true;
@@ -117,11 +116,6 @@ public class RayGenerator : MonoBehaviour
                             prevColl = null;
                             Debug.Log("- ! = = = = = < L A N T E R N > = = = = = ! -");
                         }
-=======
-                        prevColl.GetComponent<LightCtrl>().isUp = true;
-                        GameObject.FindGameObjectWithTag("FOLLOWCAM").GetComponent<CameraCtrl>().ZoomIn(prevColl.gameObject);
-                        prevColl = null;
->>>>>>> MonsterAI_3
                     }
                     else
                     {
@@ -157,7 +151,6 @@ public class RayGenerator : MonoBehaviour
                      * 변수 검사를 먼저 해야 다음 충돌 때 정상적으로 음파 상호작용이 이루어짐 */
                     if (prevColl)
                     {
-<<<<<<< HEAD
                         if (!prevColl.GetComponent<LightCtrl>().isUp)
                         {
                             prevColl.GetComponent<LightCtrl>().isUp = true;
@@ -165,11 +158,6 @@ public class RayGenerator : MonoBehaviour
                             prevColl = null;
                             Debug.Log("- ! = = = = = < L A N T E R N > = = = = = ! - Last Hit");
                         }
-=======
-                        prevColl.GetComponent<LightCtrl>().isUp = true;
-                        GameObject.FindGameObjectWithTag("FOLLOWCAM").GetComponent<CameraCtrl>().ZoomIn(prevColl.gameObject);
-                        prevColl = null;
->>>>>>> MonsterAI_3
                     }
                     else
                     {
