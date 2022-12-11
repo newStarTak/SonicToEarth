@@ -12,12 +12,16 @@ public class MonsterController : MonoBehaviour
     private float avoid = 0.3f;
     [SerializeField]
     private float attackDelay = 2.0f;
+    [SerializeField]
+    private GameObject bullet;
+    [SerializeField]
+    private GameObject attackPos;
 
     public GameObject player;
-    public Animator animator;
+    private Animator animator;
 
     private float toPlayerDistance;
-    private Vector3 toPlayerDirection;
+    protected Vector3 toPlayerDirection;
 
     private bool notRedundantHit = true;
     private bool onDestroy = false;
@@ -26,6 +30,7 @@ public class MonsterController : MonoBehaviour
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -42,7 +47,7 @@ public class MonsterController : MonoBehaviour
 
             if (toPlayerDistance <= AISight) {
                 if(!onAttack) {
-                    Debug.Log("Attack");
+                    Attack();
                     Wait(attackDelay);
                 }
             }
@@ -87,10 +92,14 @@ public class MonsterController : MonoBehaviour
     // Service [Player 방향으로 바라보도록 좌우 변환]
     private void reverseToPlayer(Vector3 toPlayerDirection)
     {
-        if (toPlayerDirection.x < 0)
+        if (toPlayerDirection.x < 0) {
+            attackPos.transform.localPosition = new Vector3(-2.5f, -2.0f, 0);
             spriteRenderer.flipX = false;
-        else
+        }
+        else {
+            attackPos.transform.localPosition = new Vector3(2.5f, -2.0f, 0);
             spriteRenderer.flipX = true;
+        }
     }
 
     // Task [Player를 추격]
@@ -133,6 +142,6 @@ public class MonsterController : MonoBehaviour
 
     private void Attack()
     {
-        // Instantiate(Bullet, attackPos.transform.position, attackPos.transform.rotation);
+        Instantiate(bullet, attackPos.transform.position, attackPos.transform.rotation);
     }
 }
