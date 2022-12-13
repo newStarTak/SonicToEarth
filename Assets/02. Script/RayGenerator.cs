@@ -37,7 +37,11 @@ public class RayGenerator : MonoBehaviour
             // 발사된 Ray가 충돌체를 감지
             hit = Physics2D.Raycast(RayGeneratePoint.position, direction, float.MaxValue);
 
-            if (hit.collider != null) {
+            if (hit.collider.tag == "BOUNDARY")
+            {
+                StartCoroutine(GenerateTrail(trail, hit.point, hit.normal, ReflectingDistance, false, hit.collider.name));
+            }
+            else if (hit.collider != null) {
                 StartCoroutine(GenerateTrail(trail, hit.point, hit.normal, ReflectingDistance, true, hit.collider.name));
 
                 /* 레이를 미리 쏴봤을 때 음파 상호작용 오브젝트라면
@@ -48,7 +52,6 @@ public class RayGenerator : MonoBehaviour
                     prevColl = hit.collider;
                 }
             }
-
             else {
                 // 발사된 Ray가 충돌하지 못하는 상황에선 일정 거리 진행 후 소멸
                 StartCoroutine(GenerateTrail(trail, direction * 10, Vector3.zero, ReflectingDistance, false, hit.collider.name));

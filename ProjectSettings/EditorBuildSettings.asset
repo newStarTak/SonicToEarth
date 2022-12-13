@@ -12,9 +12,21 @@ EditorBuildSettings:
     path: Assets/01. Scene/Main.unity
     guid: 7b4000994c2eb2349add17d3ccec6e66
   - enabled: 1
+    path: Assets/01. Scene/Story.unity
+    guid: f627a43c422cbb44ea97a61c26badc08
+  - enabled: 1
     path: Assets/01. Scene/Stage_Tutorial.unity
     guid: f39fafce96d2b1340a63d1d308b8c445
   - enabled: 1
     path: Assets/01. Scene/Stage_1.unity
     guid: ec6bef244c5e3f644bada26994396b1f
+  - enabled: 1
+    path: Assets/01. Scene/Stage_2.unity
+    guid: a596e728e946dda468fc65a34282b816
+  - enabled: 1
+    path: Assets/01. Scene/Stage_3.unity
+    guid: 352ab3aaf698b8e4b952f731c4cefe2b
+  - enabled: 1
+    path: Assets/01. Scene/Finish.unity
+    guid: 2a554f4beeb6c714aa776592eabc4c21
   m_configObjects: {}

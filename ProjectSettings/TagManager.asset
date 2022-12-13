@@ -10,6 +10,7 @@ TagManager:
   - TRAIL
   - DOOR
   - FAKEDOOR
+  - BOUNDARY
   layers:
   - Default
   - TransparentFX

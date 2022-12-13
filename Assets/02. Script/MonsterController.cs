@@ -40,7 +40,6 @@ public class MonsterController : MonoBehaviour
         {
             RandomHit(avoid);
         }
-
         else if (!onDestroy)
         {
             toPlayerDistance = DistanceToPlayer(player);
@@ -115,7 +114,7 @@ public class MonsterController : MonoBehaviour
     // Task [Player를 추격]
     private void Trace(Vector3 traceDirection)
     {
-        gameObject.transform.position += traceDirection * traceSpeed;
+        gameObject.transform.position += traceDirection * traceSpeed * Time.deltaTime;
     }
 
     // Task [피격 판정]

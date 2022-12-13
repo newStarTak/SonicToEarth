@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6770801338143294910}
   - component: {fileID: 6770801338143294909}
   - component: {fileID: 6770801338143294908}
-  - component: {fileID: 3742886417087324518}
   - component: {fileID: 2284086343187496067}
   m_Layer: 0
   m_Name: Monster
@@ -100,26 +99,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8953e4dda724c254da44a526b7a12cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AISight: 2.5
-  traceSpeed: 0.05
-  avoid: 0.8
+  AISight: 3
+  traceSpeed: 2
+  avoid: 0.5
   attackDelay: 2
   bullet: {fileID: 642192644406496258, guid: c82208a91e0949f4d9ccf8ac5cae5c4a, type: 3}
   attackPos: {fileID: 7171525413917600556}
   player: {fileID: 0}
---- !u!114 &3742886417087324518
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6770801338143294899}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b4e18cc9b169a54cb0379198a7d5cd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletSpeed: 0.002
 --- !u!95 &2284086343187496067
 Animator:
   serializedVersion: 4

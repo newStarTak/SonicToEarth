@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MonsterAttackManager : MonoBehaviour
 {
@@ -19,6 +20,14 @@ public class MonsterAttackManager : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(targetDirection * bulletSpeed);
+        transform.Translate(targetDirection * bulletSpeed * Time.deltaTime);
+    }
+
+    private void OnCollisionEnter2D(Collision2D coll)
+    {
+        if(coll.collider.tag == "Player")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 }

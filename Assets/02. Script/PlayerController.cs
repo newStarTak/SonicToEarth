@@ -53,13 +53,6 @@ public class PlayerController : MonoBehaviour
 
         anim = GetComponent<Animator>();
         sprRend = GetComponent<SpriteRenderer>();
-
-        Invoke("MicEnable", 1.0f);
-    }
-
-    void MicEnable()
-    {
-        canShoot = true;
     }
 
     void Update()
@@ -70,8 +63,8 @@ public class PlayerController : MonoBehaviour
         }
 
         // 캐릭터 발 아래로 작은 레이 생성해 점프 상태 체크
-        RaycastHit2D rayHit = Physics2D.Raycast(rb.position, Vector2.down, 1.1f);
-        Debug.DrawRay(rb.position, Vector2.down * 1.1f, Color.green);
+        RaycastHit2D rayHit = Physics2D.Raycast(rb.position, Vector2.down, 1.2f);
+        Debug.DrawRay(rb.position, Vector2.down * 1.2f, Color.green);
 
         if (rayHit) {
             if (rayHit.collider.tag == "PLATFORM") {
@@ -152,10 +145,10 @@ public class PlayerController : MonoBehaviour
 
         // 디버깅용 마우스 클릭으로 음파 발사
 
-        if (Input.GetMouseButtonDown(0) && canShoot)
+        /*if (Input.GetMouseButtonDown(0) && canShoot)
         {
             canShoot = false;
             rayGenerator.RayGenerate();
-        }
+        }*/
     }
 }
